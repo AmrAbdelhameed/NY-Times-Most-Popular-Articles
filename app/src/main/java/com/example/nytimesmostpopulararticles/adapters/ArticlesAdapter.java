@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.nytimesmostpopulararticles.R;
+import com.example.nytimesmostpopulararticles.interfaces.OnClickListener;
 import com.example.nytimesmostpopulararticles.models.response.ArticlesResponse;
 
 import java.util.ArrayList;
@@ -16,13 +17,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
     private Context context;
+    private OnClickListener onClickListener;
     private List<ArticlesResponse.ResultsBean> resultsBeans;
 
-    public ArticlesAdapter(Context context) {
+    public ArticlesAdapter(Context context, OnClickListener onClickListener) {
         this.context = context;
+        this.onClickListener = onClickListener;
         this.resultsBeans = new ArrayList<>();
     }
 
@@ -64,6 +68,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         MyViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        @OnClick(R.id.cardView)
+        public void cardView(View view) {
+            if (getAdapterPosition() != -1) {
+                onClickListener.onClick(view, getAdapterPosition());
+            }
         }
 
         private void bind(ArticlesResponse.ResultsBean resultsBean) {

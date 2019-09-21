@@ -1,6 +1,7 @@
 package com.example.nytimesmostpopulararticles.views;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,14 +13,19 @@ import android.widget.Toast;
 import com.example.nytimesmostpopulararticles.R;
 import com.example.nytimesmostpopulararticles.adapters.ArticlesAdapter;
 import com.example.nytimesmostpopulararticles.interfaces.ArticlesContract;
+import com.example.nytimesmostpopulararticles.interfaces.OnClickListener;
 import com.example.nytimesmostpopulararticles.models.ArticlesModel;
 import com.example.nytimesmostpopulararticles.models.response.ArticlesResponse;
 import com.example.nytimesmostpopulararticles.presenters.ArticlesPresenter;
+import com.example.nytimesmostpopulararticles.utils.Constants;
+import com.example.nytimesmostpopulararticles.utils.IntentHelper;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ArticlesContract.View {
+public class MainActivity extends AppCompatActivity implements ArticlesContract.View, OnClickListener {
     private static int currentPositionOnScroll = 0, oldPositionOnScroll = -1;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -35,13 +41,16 @@ public class MainActivity extends AppCompatActivity implements ArticlesContract.
         setContentView(R.layout.activity_main);
 
         presenter = new ArticlesPresenter(this, new ArticlesModel(this));
-        presenter.requestMostPopularArticles(period);
+        if (savedInstanceState != null)
+            articlesAdapter.setResultsBeans(savedInstanceState.<ArticlesResponse.ResultsBean>getParcelableArrayList(Constants.Bundle.ARTICLES));
+        else
+            presenter.requestMostPopularArticles(period);
     }
 
     @Override
     public void init() {
         ButterKnife.bind(this);
-        articlesAdapter = new ArticlesAdapter(this);
+        articlesAdapter = new ArticlesAdapter(this, this);
         articlesRecyclerView.setAdapter(articlesAdapter);
         initScrollListener();
     }
@@ -102,5 +111,18 @@ public class MainActivity extends AppCompatActivity implements ArticlesContract.
                 }
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelableArrayList(Constants.Bundle.ARTICLES, (ArrayList<? extends Parcelable>) articlesAdapter.getResultsBeans());
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.Bundle.ARTICLE, articlesAdapter.getResultsBeans().get(position));
+        IntentHelper.openActivity(this, DetailsActivity.class, bundle);
     }
 }

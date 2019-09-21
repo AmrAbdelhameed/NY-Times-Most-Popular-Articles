@@ -1,5 +1,8 @@
 package com.example.nytimesmostpopulararticles.models.response;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 public class ArticlesResponse {
@@ -48,7 +51,18 @@ public class ArticlesResponse {
         this.results = results;
     }
 
-    public static class ResultsBean {
+    public static class ResultsBean implements Parcelable {
+        public static final Creator<ResultsBean> CREATOR = new Creator<ResultsBean>() {
+            @Override
+            public ResultsBean createFromParcel(Parcel in) {
+                return new ResultsBean(in);
+            }
+
+            @Override
+            public ResultsBean[] newArray(int size) {
+                return new ResultsBean[size];
+            }
+        };
         /**
          * url : https://www.nytimes.com/2019/09/19/us/politics/intelligence-whistle-blower-complaint-trump.html
          * adx_keywords : Trump, Donald J;Ukraine;United States International Relations;United States Politics and Government;Whistle-Blowers;Ethics and Official Misconduct;Classified Information and State Secrets;Espionage and Intelligence Services;Inspectors General;Office of the Director of National Intelligence;House Committee on Intelligence
@@ -75,6 +89,12 @@ public class ArticlesResponse {
         private String title;
         private String published_date;
 
+        protected ResultsBean(Parcel in) {
+            byline = in.readString();
+            title = in.readString();
+            published_date = in.readString();
+        }
+
         public String getByline() {
             return byline;
         }
@@ -97,6 +117,18 @@ public class ArticlesResponse {
 
         public void setPublished_date(String published_date) {
             this.published_date = published_date;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(byline);
+            dest.writeString(title);
+            dest.writeString(published_date);
         }
     }
 }

@@ -2,6 +2,8 @@ package com.example.nytimesmostpopulararticles.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.example.nytimesmostpopulararticles.R;
 import com.example.nytimesmostpopulararticles.models.response.ErrorBody;
@@ -26,5 +28,14 @@ public class AppManger {
                     errorBody.getErrors().get(0) : context.getString(R.string.connectionFailed_message);
         } else
             return context.getString(R.string.connectionFailed_message);
+    }
+
+    public static void setToolBarOptions(AppCompatActivity appCompatActivity, Toolbar toolbar) {
+        appCompatActivity.setSupportActionBar(toolbar);
+        if (appCompatActivity.getSupportActionBar() != null) {
+            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            appCompatActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+            appCompatActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
     }
 }
