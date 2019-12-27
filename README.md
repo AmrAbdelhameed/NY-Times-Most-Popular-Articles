@@ -15,15 +15,15 @@ This repository contains a simple app to hit the NY Times Most Popular Articles 
 
 # Project Structure
 <p align="center">
-    <img src="screen1.png"/>
-    <img src="screen2.png"/>
-    <img src="screen3.png"/>
+    <img src="screen1.png" width="250" height="100"/>
+    <img src="screen2.png" width="250" height="100"/>
+    <img src="screen3.png" width="250" height="100"/>
 </p>
 <br>
 <p align="center">
-    <img src="screen4.png"/>
-    <img src="screen5.png"/>
-    <img src="screen6.png"/>
+    <img src="screen4.png" width="250" height="100"/>
+    <img src="screen5.png" width="250" height="100"/>
+    <img src="screen6.png" width="250" height="100"/>
 </p>
 <br>
 
