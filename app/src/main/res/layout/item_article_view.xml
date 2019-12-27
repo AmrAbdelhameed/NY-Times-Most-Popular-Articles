@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8dp"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/_4dp"
+        app:cardElevation="@dimen/_4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16dp">
+
+            <ImageView
+                android:id="@+id/articleImg"
+                android:layout_width="@dimen/_75dp"
+                android:layout_height="@dimen/_75dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/articleImg"
+                app:layout_constraintEnd_toStartOf="@+id/ic_arrow"
+                app:layout_constraintStart_toEndOf="@+id/articleImg"
+                app:layout_constraintTop_toTopOf="@+id/articleImg">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sp"
+                    android:textStyle="bold"
+                    tools:text="Whistle-Blower Complaint Sets Off a Battle Involving Trump" />
+
+                <TextView
+                    android:id="@+id/byline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_10sp"
+                    tools:text="By JULIAN E. BARNES, NICHOLAS FANDOS, MICHAEL S. SCHMIDT and MATTHEW ROSENBERG" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:gravity="end|center"
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_date"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/published_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:singleLine="true"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/_10sp"
+                        tools:text="2019-09-19" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ic_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/articleImg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/articleImg"
+                app:srcCompat="@drawable/ic_arrow"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
