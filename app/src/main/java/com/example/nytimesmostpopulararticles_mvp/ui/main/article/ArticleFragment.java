@@ -5,8 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +20,6 @@ import com.example.nytimesmostpopulararticles_mvp.data.network.model.ArticlesRes
 import com.example.nytimesmostpopulararticles_mvp.di.component.ActivityComponent;
 import com.example.nytimesmostpopulararticles_mvp.ui.base.BaseFragment;
 import com.example.nytimesmostpopulararticles_mvp.ui.main.MainActivity;
-import com.example.nytimesmostpopulararticles_mvp.ui.main.article_details.ArticleDetailsFragment;
 import com.example.nytimesmostpopulararticles_mvp.utils.AppConstants;
 
 import java.util.List;
@@ -44,15 +47,10 @@ public class ArticleFragment extends BaseFragment implements
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    private NavController navController;
+
     public ArticleFragment() {
         // Required empty public constructor
-    }
-
-    public static ArticleFragment newInstance() {
-        Bundle args = new Bundle();
-        ArticleFragment fragment = new ArticleFragment();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -77,6 +75,12 @@ public class ArticleFragment extends BaseFragment implements
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+    }
+
+    @Override
     protected void setUp(View view) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -94,9 +98,7 @@ public class ArticleFragment extends BaseFragment implements
     public void onItemClick(ArticlesResponse.Article article) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(AppConstants.ARTICLE, article);
-        if (getActivity() != null) {
-            ((MainActivity) getActivity()).replaceCurrentFragment(bundle, new ArticleDetailsFragment());
-        }
+        navController.navigate(R.id.action_articleFragment_to_articleDetailsFragment, bundle);
     }
 
     @Override

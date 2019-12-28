@@ -24,7 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_250dp"
                 android:scaleType="fitXY"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_articles" />
 
             <TextView
                 android:id="@+id/title"
